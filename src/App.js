@@ -1,6 +1,7 @@
 import React from "react";
 import PostMovieQuoteForm from "./components/PostMovieQuoteForm";
 import PutMovieQuoteForm from "./components/PutMovieQuoteForm";
+import DeleteMovieQuoteForm from "./components/DeleteMovieQuoteForm";
 import "./styles.css";
 import axios from "axios";
 class App extends React.Component {
@@ -32,6 +33,13 @@ class App extends React.Component {
     return axios
       .put(`https://lambda-school-test-apis.herokuapp.com/quotes/76`, quote)
       .then(res => console.log(res))
+      .catch(err => console.log(err));
+  };
+
+  deleteMessage = () => {
+   return  axios
+      .delete(`https://lambda-school-test-apis.herokuapp.com/quotes/42`)
+      .then(response => console.log(response))
       .catch(err => console.log(err));
   };
   changeTab = tab => {
@@ -81,6 +89,7 @@ class App extends React.Component {
         {this.state.showForm === "put" && (
           <PutMovieQuoteForm putMessage={this.putMessage} />
         )}
+        {this.state.showForm === "delete" && <DeleteMovieQuoteForm deleteMessage={this.deleteMessage} />}
       </div>
     );
   }
