@@ -1,59 +1,61 @@
 import React from "react";
 
-class PostMovieQuoteForm extends React.Component {
+class PutMovieQuoteForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       movieQuote: {
-        quote: "",
-        movie: "",
-        character: ""
+        quote: "But why is all the rum gone?",
+        movie: "Pirates of the Carribean",
+        character: "Jack Sparrow"
       }
     };
   }
   handleChange = e => {
     this.setState({
-      movieQuote: { ...this.state.movieQuote, [e.target.name]: e.target.value }
+      movieQuote: {
+        ...this.state.movieQuote,
+        [e.target.name]: e.target.value
+      }
     });
   };
-  submitPostMessage = e => {
+  submitPutMessage = e => {
     e.preventDefault();
-    this.props.postMessage(this.state.movieQuote);
+    this.props.putMessage(this.state.movieQuote);
     this.setState({ movieQuote: { quote: "", movie: "", character: "" } });
   };
   render() {
     return (
       <div className="quotes-form">
-        <h2>Post (add) a new quote</h2>
-        <form onSubmit={this.submitPostMessage}>
+        <form onSubmit={this.submitPutMessage}>
+          <h2>Put (update) a quote </h2>
           <input
             type="text"
             name="quote"
             onChange={this.handleChange}
+            placeholder="Quote"
             value={this.state.movieQuote.quote}
-            placeholder="quote"
           />
           <input
             type="text"
             name="character"
             onChange={this.handleChange}
+            placeholder="Quote"
             value={this.state.movieQuote.character}
-            placeholder="Character"
           />
           <input
             type="text"
             name="movie"
             onChange={this.handleChange}
+            placeholder="Quote"
             value={this.state.movieQuote.movie}
-            placeholder="movie"
           />
           <button className="quotes-btn" type="submit">
-            Post Quote
+            Put Quote
           </button>
         </form>
       </div>
     );
   }
 }
-
-export default PostMovieQuoteForm;
+export default PutMovieQuoteForm;

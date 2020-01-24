@@ -1,5 +1,6 @@
 import React from "react";
 import PostMovieQuoteForm from "./components/PostMovieQuoteForm";
+import PutMovieQuoteForm from "./components/PutMovieQuoteForm";
 import "./styles.css";
 import axios from "axios";
 class App extends React.Component {
@@ -17,7 +18,7 @@ class App extends React.Component {
   }
 
   postMessage = quote => {
-    axios
+    return axios
       .get(`https://lambda-school-test-apis.herokuapp.com/quote`, quote)
       .then(res => {
         this.setState({
@@ -27,7 +28,12 @@ class App extends React.Component {
       })
       .catch(err => console.log(err));
   };
-
+  putMessage = quote => {
+    return axios
+      .put(`https://lambda-school-test-apis.herokuapp.com/quotes/76`, quote)
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+  };
   changeTab = tab => {
     this.setState({
       postSuccessMessage: "",
@@ -65,15 +71,16 @@ class App extends React.Component {
             </li>
           </ul>
         </nav>
-        {
-          (this.state.showForm = "post" && (
-            <PostMovieQuoteForm
+        {this.state.showForm === "post" && (
+          <PostMovieQuoteForm
             postMessage={this.postMessage}
-              postSuccessMessage={this.state.postSuccessMessage}
-              postError={this.state.postError}
-            />
-          ))
-        }
+            postSuccessMessage={this.state.postSuccessMessage}
+            postError={this.state.postError}
+          />
+        )}
+        {this.state.showForm === "put" && (
+          <PutMovieQuoteForm putMessage={this.putMessage} />
+        )}
       </div>
     );
   }
